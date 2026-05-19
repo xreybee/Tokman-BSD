@@ -14,7 +14,7 @@ const participants = [
     { name: 'Sarah', image: 'foto/sarah.jpeg' },
     { name: 'Amelia', image: 'foto/Amelia.jpeg' },
     { name: 'Melanie', image: 'foto/Melanie.jpg' },
-    { name: 'Marseal', image: 'foto/Marseal.jpeg' },
+    { name: 'Marseal', image: 'foto/marseal.jpeg' },
     { name: 'Ale', image: 'foto/Ale.jpeg' },
     { name: 'Aress', image: 'foto/Aress.png' }
 ];
