@@ -386,8 +386,8 @@ function initializeMediaGallery() {
         const container = document.createElement('div');
         container.className = 'media-item';
         if (item.type === 'image') container.innerHTML = `<img src="${item.src}" alt="${item.caption}">`;
-        else container.innerHTML = `
-                <video width="100%" controls muted playsinline webkit-playsinline>
+      else container.innerHTML = `
+                <video width="100%" playsinline webkit-playsinline disablePictureInPicture style="border-radius: 10px;">
                     <source src="${item.src}" type="video/mp4">
                     Browser Anda tidak mendukung video.
                 </video>
@@ -430,35 +430,41 @@ function initializeMediaGallery() {
 
 function setupVideoVisibilityObserver(container) {
     const videos = container.querySelectorAll('video');
-    const bgMusic = document.getElementById('backgroundMusic'); // Panggil elemen musik background
+    const bgMusic = document.getElementById('backgroundMusic');
     
-    const observerOptions = { root: container, threshold: 0.08 };
+    const observerOptions = { root: container, threshold: 0.5 }; // threshold dibesarkan agar video benar-benar di tengah sebelum bunyi
+    
     const observerCallback = entries => {
         entries.forEach(entry => {
             const video = entry.target;
             
             if (entry.isIntersecting) { 
-                // 1. Video masuk layar: Nyalakan suara video
-                video.muted = false; 
+                // 1. Trik: Putar dulu dalam keadaan bisu agar iPhone membiarkannya tetap inline
+                video.muted = true;
                 
-                // 2. Efek Sinematik: Turunkan volume musik background jadi 10%
-                if(bgMusic) bgMusic.volume = 0.2; 
-                
-                video.play().catch(e => {
-                    console.log('Video autoplay blocked by iOS:', e);
-                    // Plan B: Jika iOS masih keras kepala memblokir, putar tanpa suara agar visual tetap jalan
+                video.play().then(() => {
+                    // 2. Jika sudah berhasil mutar tanpa fullscreen, selundupkan suaranya!
+                    video.muted = false;
+                    
+                    // 3. Efek Dramatis: Turunkan volume lagu kenangan
+                    if(bgMusic) bgMusic.volume = 0.1; 
+                    
+                }).catch(e => {
+                    console.log('Video diblokir ketat oleh iOS:', e);
+                    // Plan B jika iOS mentok: Tetap putar tapi bisu, agar web tidak error
                     video.muted = true;
                     video.play().catch(err => console.log(err));
                 }); 
             }
             else { 
-                // 3. Video keluar layar: Matikan video
+                // Saat video lewat dan keluar dari layar
                 video.pause(); 
+                // Reset video ke awal agar rapi jika di-scroll ke atas lagi
+                video.currentTime = 0; 
                 
-                // 4. Kembalikan musik background ke volume normal (50%)
+                // Kembalikan volume lagu
                 if(bgMusic) {
                     bgMusic.volume = 0.50; 
-                    // Jika iPhone sempat mem-pause paksa musiknya, putar kembali
                     if(bgMusic.paused && playlistPlaybackActive) {
                         bgMusic.play().catch(e => console.log('Gagal resume musik:', e));
                     }
@@ -466,6 +472,7 @@ function setupVideoVisibilityObserver(container) {
             }
         });
     };
+    
     const observer = new IntersectionObserver(observerCallback, observerOptions);
     videos.forEach(video => observer.observe(video));
 }
