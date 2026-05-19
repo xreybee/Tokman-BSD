@@ -386,7 +386,12 @@ function initializeMediaGallery() {
         const container = document.createElement('div');
         container.className = 'media-item';
         if (item.type === 'image') container.innerHTML = `<img src="${item.src}" alt="${item.caption}">`;
-        else container.innerHTML = `\n                <video width="100%" controls muted>\n                    <source src="${item.src}" type="video/mp4">\n                    Browser Anda tidak mendukung video.\n                </video>\n            `;
+        else container.innerHTML = `
+                <video width="100%" controls muted playsinline webkit-playsinline>
+                    <source src="${item.src}" type="video/mp4">
+                    Browser Anda tidak mendukung video.
+                </video>
+            `;
         mediaScroll.appendChild(container);
     });
 
@@ -425,12 +430,40 @@ function initializeMediaGallery() {
 
 function setupVideoVisibilityObserver(container) {
     const videos = container.querySelectorAll('video');
+    const bgMusic = document.getElementById('backgroundMusic'); // Panggil elemen musik background
+    
     const observerOptions = { root: container, threshold: 0.08 };
     const observerCallback = entries => {
         entries.forEach(entry => {
             const video = entry.target;
-            if (entry.isIntersecting) { video.muted = false; video.play().catch(e => console.log('Video autoplay blocked:', e)); }
-            else { video.muted = true; video.pause(); }
+            
+            if (entry.isIntersecting) { 
+                // 1. Video masuk layar: Nyalakan suara video
+                video.muted = false; 
+                
+                // 2. Efek Sinematik: Turunkan volume musik background jadi 10%
+                if(bgMusic) bgMusic.volume = 0.2; 
+                
+                video.play().catch(e => {
+                    console.log('Video autoplay blocked by iOS:', e);
+                    // Plan B: Jika iOS masih keras kepala memblokir, putar tanpa suara agar visual tetap jalan
+                    video.muted = true;
+                    video.play().catch(err => console.log(err));
+                }); 
+            }
+            else { 
+                // 3. Video keluar layar: Matikan video
+                video.pause(); 
+                
+                // 4. Kembalikan musik background ke volume normal (50%)
+                if(bgMusic) {
+                    bgMusic.volume = 0.50; 
+                    // Jika iPhone sempat mem-pause paksa musiknya, putar kembali
+                    if(bgMusic.paused && playlistPlaybackActive) {
+                        bgMusic.play().catch(e => console.log('Gagal resume musik:', e));
+                    }
+                }
+            }
         });
     };
     const observer = new IntersectionObserver(observerCallback, observerOptions);
