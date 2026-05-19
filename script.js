@@ -432,7 +432,7 @@ function setupVideoVisibilityObserver(container) {
     const videos = container.querySelectorAll('video');
     const bgMusic = document.getElementById('backgroundMusic');
     
-    const observerOptions = { root: container, threshold: 0.5 }; // threshold dibesarkan agar video benar-benar di tengah sebelum bunyi
+    const observerOptions = { root: container, threshold: 0.2 }; // threshold dibesarkan agar video benar-benar di tengah sebelum bunyi
     
     const observerCallback = entries => {
         entries.forEach(entry => {
@@ -447,7 +447,7 @@ function setupVideoVisibilityObserver(container) {
                     video.muted = false;
                     
                     // 3. Efek Dramatis: Turunkan volume lagu kenangan
-                    if(bgMusic) bgMusic.volume = 0.3; 
+                    if(bgMusic) bgMusic.volume = 0.4; 
                     
                 }).catch(e => {
                     console.log('Video diblokir ketat oleh iOS:', e);
