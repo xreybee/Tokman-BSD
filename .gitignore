@@ -1,0 +1,22 @@
+# Media files (upload these manually jika perlu)
+foto/
+video/
+audio/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules (jika menggunakan npm)
+node_modules/
+npm-debug.log
+
+# Build output
+dist/
+build/

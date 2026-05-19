@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOKMAN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing" class="page active">
+        <div class="landing-content">
+            <h1 class="landing-title">Sesuatu yang mau gua Katakan</h1> 
+            <p class="landing-subtitle">Perjalanan Emosi Yang Akan Mengubah Segalanya</p>
+            <button class="btn-primary" onclick="goToNameSelection()">Mulai Sekarang</button>
+        </div>
+    </div>
+
+    <!-- Name Selection Page -->
+    <div id="nameSelection" class="page">
+        <div class="selection-container">
+            <h2>Pilih Nama Kamu</h2>
+            <p>Pilih nama kamu agar hanya kamu yang dapat membaca pesan khusus berikutnya.</p>
+            <div class="name-list" id="nameList"></div>
+        </div>
+    </div>
+
+    <!-- Playlist Selection Page -->
+    <div id="playlistSelection" class="page">
+        <div class="playlist-container">
+            <h2 id="playlistTitle"></h2>
+            <p id="playlistSubtitle" class="playlist-subtitle"></p>
+            <div class="song-list" id="songList"></div>
+            <div class="now-playing" id="nowPlaying"></div>
+        </div>
+    </div>
+
+    <!-- Greeting Page -->
+    <div id="greeting" class="page">
+        <div class="greeting-container">
+            <h1 id="greetingText" class="greeting-text"></h1>
+            <p id="complimentText" class="compliment-text"></p>
+        </div>
+    </div>
+
+    <!-- Confirmation Page -->
+    <div id="confirmation" class="page">
+        <div class="confirmation-container">
+            <h2>LU udah Siap Menjelajahi Masa Lalu?</h2>
+            <h3>Santai Ini bukan perpisahan kok, <br> nanti gua main lagi ke Tokman mwhhhee</h3>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="goToBreathing()">Gua Belom Siap</button>
+                <button class="btn-primary btn-success" onclick="goToPersonalMessages()">Gua Sudah Siap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breathing Page -->
+    <div id="breathing" class="page">
+        <div class="breathing-container">
+            <h2>Tenangkan Diri Dulu</h2>
+            <p class="breathing-instruction">Tarik nafas pelan-pelan, lalu hembuskan</p>
+            
+            <div class="breathing-circle" id="breathingCircle"></div>
+            
+            <p class="breathing-timer" id="breathingTimer">Bersiaplah...</p>
+            
+            <button class="btn-primary" onclick="goToPersonalMessages()">Gua udah Siap</button>
+        </div>
+    </div>
+
+    <!-- Personal Messages Page -->
+    <div id="personalMessages" class="page">
+        <div class="messages-container">
+            <h2 id="personalTitle"></h2>
+            <div class="message-scroll" id="messageScroll"></div>
+            <button class="btn-primary btn-success" onclick="goToAutoScroll()">Lanjut</button>
+        </div>
+    </div>
+
+    <!-- Media Gallery Page -->
+    <div id="mediaGallery" class="page">
+        <div class="media-container">
+            <div class="media-scroll" id="mediaScroll">
+                <!-- Media items will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank You Page -->
+    <div id="thankYou" class="page">
+        <div class="thank-you-container">
+            <h1 id="thankYouText" class="thank-you-text"></h1>
+            <p class="thank-you-message">Terima kasih telah meluangkan waktu untuk bercerita sama gua</p>
+            <button class="btn-primary" onclick="goToLanding()">Mulai Ulang</button>
+        </div>
+    </div>
+
+    <audio id="backgroundMusic" style="display: none;"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
