@@ -244,7 +244,12 @@ function startBreathingExercise() {
 function goToPersonalMessages() { showPage('personalMessages'); renderPersonalMessages(); }
 
 function getPersonalPhotoPaths(name) {
-    const folderName = encodeURI(name.toLowerCase());
+    // 1. Ubah huruf pertama jadi kapital, sisanya huruf kecil (misal: "adjie" -> "Adjie")
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    
+    // 2. Masukkan ke dalam path
+    const folderName = encodeURI(capitalizedName);
+    
     return Array.from({ length: 5 }, (_, i) => `foto pesan khusus/${folderName}/foto${i + 1}.jpeg`);
 }
 
