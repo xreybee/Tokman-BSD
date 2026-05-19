@@ -447,7 +447,7 @@ function setupVideoVisibilityObserver(container) {
                     video.muted = false;
                     
                     // 3. Efek Dramatis: Turunkan volume lagu kenangan
-                    if(bgMusic) bgMusic.volume = 0.1; 
+                    if(bgMusic) bgMusic.volume = 0.3; 
                     
                 }).catch(e => {
                     console.log('Video diblokir ketat oleh iOS:', e);
