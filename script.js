@@ -22,9 +22,9 @@ const participants = [
 // Playlists (placeholder file names; update if needed)
 const playlists = [
     { title: 'Adelle - All I Ask', file: 'playlst/All I Ask.mp3' },
-    { title: 'Barasuara - Terbuang Dalam Waktu', file: 'playlst/Barasuara-Terbuang Dalam Waktu (Official Video).mp3' },
+    { title: 'Barasuara - Terbuang Dalam Waktu', file: 'playlst/Barasuara - Terbuang Dalam Waktu (Official Video).mp3' },
     { title: 'Daniel Caesar - Who Knows', file: 'playlst/Daniel Caesar - Who Knows Official Lyric Video.mp3' },
-     { title: 'Hindia-Kita Ke Sana', file: 'playlst/Hindia-Kita Ke Sana_Lirik Lagu.mp3' },
+     { title: 'Hindia-Kita Ke Sana', file: 'playlst/Hindia - Kita ke Sana _ Lirik Lagu.mp3' },
     { title: 'Billie Eilish - TV', file: 'playlst/Billie Eilish - TV (Lyrics).mp3' },
     { title: 'Conan Gray - The Cut That Always Bleeds', file: 'playlst/Conan Gray - The Cut That Always Bleeds (Lyric Video).mp3' },
     { title: 'Daniel Caesar - Always', file: 'playlst/Daniel Caesar - Always (Official Audio) (1).mp3' },
